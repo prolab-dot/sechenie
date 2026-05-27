@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Генератор сечений трубопроводов</title>
+    <title>Генератор сечений трубопроводов в футляре</title>
     <style>
-        * { box-sizing: border-box; }
+        * {
+            box-sizing: border-box;
+        }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
@@ -35,8 +37,16 @@
             border-radius: 12px;
             border: 1px solid #dee2e6;
         }
-        .controls h3 { margin-top: 0; color: #0b5ed7; }
-        .controls label { display: block; margin-top: 15px; font-weight: 500; }
+        .controls h3 {
+            margin-top: 0;
+            color: #0b5ed7;
+        }
+        .controls label {
+            display: block;
+            margin-top: 15px;
+            font-weight: 500;
+            color: #2c3e50;
+        }
         .controls input {
             width: 100%;
             padding: 8px 12px;
@@ -55,6 +65,10 @@
             border-radius: 8px;
             font-size: 1rem;
             cursor: pointer;
+            transition: background 0.2s;
+        }
+        .controls button:hover {
+            background: #0b5ed7;
         }
         .export-buttons {
             display: flex;
@@ -65,7 +79,13 @@
             margin-top: 0;
             background: #28a745;
         }
-        .export-buttons button:last-child { background: #ffc107; color: #000; }
+        .export-buttons button:last-child {
+            background: #ffc107;
+            color: #000;
+        }
+        .export-buttons button:hover {
+            filter: brightness(0.95);
+        }
         .preview {
             flex: 2;
             text-align: center;
@@ -73,6 +93,10 @@
             border-radius: 12px;
             border: 1px solid #dee2e6;
             padding: 15px;
+        }
+        .preview h3 {
+            margin-top: 0;
+            color: #2c3e50;
         }
         canvas {
             max-width: 100%;
@@ -91,8 +115,8 @@
             .container { flex-direction: column; }
         }
     </style>
-    <!-- Библиотеки подключаем строго перед скриптом sketch.js -->
-    <script src="https://cdn.jsdelivr.net/npm/makerjs@0.9.57/dist/makerjs.js"></script>
+    <!-- ПРАВИЛЬНОЕ ПОДКЛЮЧЕНИЕ MAKER.JS (рабочая ссылка из официальной документации) -->
+    <script src="https://cdn.jsdelivr.net/npm/makerjs@0/target/js/browser.maker.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
@@ -121,7 +145,6 @@
     </div>
 </div>
 
-<!-- Наш скрипт загружаем с атрибутом defer, чтобы он выполнился после загрузки библиотек -->
 <script src="sketch.js" defer></script>
 </body>
 </html>
