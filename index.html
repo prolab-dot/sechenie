@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Генератор сечений трубопроводов в футляре</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #e9ecef;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+        .controls {
+            flex: 1;
+            min-width: 240px;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #dee2e6;
+        }
+        .controls h3 {
+            margin-top: 0;
+            color: #0b5ed7;
+        }
+        .controls label {
+            display: block;
+            margin-top: 15px;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+        .controls input {
+            width: 100%;
+            padding: 8px 12px;
+            margin-top: 5px;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        .controls button {
+            width: 100%;
+            margin-top: 20px;
+            padding: 10px;
+            background: #0d6efd;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .controls button:hover {
+            background: #0b5ed7;
+        }
+        .export-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .export-buttons button {
+            margin-top: 0;
+            background: #28a745;
+        }
+        .export-buttons button:last-child {
+            background: #ffc107;
+            color: #000;
+        }
+        .export-buttons button:hover {
+            filter: brightness(0.95);
+        }
+        .preview {
+            flex: 2;
+            text-align: center;
+            background: #fff;
+            border-radius: 12px;
+            border: 1px solid #dee2e6;
+            padding: 15px;
+        }
+        .preview h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        canvas {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ccc;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .status {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+        @media (max-width: 700px) {
+            body { padding: 10px; }
+            .container { flex-direction: column; }
+        }
+    </style>
+    <!-- Подключаем необходимые библиотеки -->
+    <script src="https://cdn.jsdelivr.net/npm/makerjs@0.9.57/dist/makerjs.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/canvg/1.5/canvg.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="controls">
+        <h3>📐 Параметры сечения</h3>
+        <label>🔵 Наружный диаметр ТРУБЫ (мм):</label>
+        <input type="number" id="pipeOD" value="219" step="1">
+
+        <label>🟠 Наружный диаметр ФУТЛЯРА (мм):</label>
+        <input type="number" id="caseOD" value="273" step="1">
+
+        <button id="generateBtn">✨ Сгенерировать чертёж</button>
+
+        <div class="export-buttons">
+            <button id="exportDxfBtn">📐 Экспорт DXF</button>
+            <button id="exportPdfBtn">📑 Экспорт PDF</button>
+        </div>
+        <div class="status" id="statusMsg">✅ Готово. Введите параметры и нажмите "Сгенерировать".</div>
+    </div>
+    <div class="preview">
+        <h3>🖼️ Предпросмотр чертежа</h3>
+        <canvas id="drawingCanvas" width="550" height="550"></canvas>
+        <div class="status">* Размерная линия показывает внешний диаметр трубы</div>
+    </div>
+</div>
+
+<script src="sketch.js"></script>
+</body>
+</html>
